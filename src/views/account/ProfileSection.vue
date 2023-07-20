@@ -2,7 +2,9 @@
 import ProfileInfoSection from "@/components/partials/profile/ProfileInfoSection.vue";
 import ProfileAboutSection from "@/components/partials/profile/ProfileAboutSection.vue";
 import RouterLinkButton from "@/components/global/RouterLinkButton.vue";
-import SongSection from "@/components/partials/profile/SongSection.vue";
+import SongsSection from "@/components/partials/profile/SongsSection.vue";
+import YoutubeVideoSection from "@/components/partials/profile/YoutubeVideoSection.vue";
+import PostSection from "@/components/partials/profile/PostSection.vue";
 </script>
 
 <template>
@@ -27,7 +29,7 @@ import SongSection from "@/components/partials/profile/SongSection.vue";
         <div class="mt-2 w-1/2">
           <RouterLinkButton
             btnText="Edit Profile"
-            color="blue-950"
+            class="border-blue-950 hover:bg-blue-950"
             url="/account/edit-profile"
           />
         </div>
@@ -36,5 +38,7 @@ import SongSection from "@/components/partials/profile/SongSection.vue";
       <ProfileAboutSection />
     </div>
   </div>
-  <SongSection />
+  <SongsSection />
+  <YoutubeVideoSection />
+  <PostSection />
 </template>
