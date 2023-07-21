@@ -11,6 +11,8 @@ import AddYoutubeVideo from "@/views/account/AddYoutubeVideo.vue";
 import DeleteYoutubeVideo from "@/views/account/DeleteYoutubeVideo.vue";
 import CreatePost from "@/views/account/CreatePost.vue";
 import EditPost from "@/views/account/EditPost.vue";
+import PostSection from "@/views/account/PostSection.vue";
+import PostById from "@/views/account/PostById.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -73,6 +75,16 @@ const router = createRouter({
           path: "edit-post",
           name: "EditPost",
           component: EditPost,
+        },
+        {
+          path: "posts",
+          name: "PostSection",
+          component: PostSection,
+        },
+        {
+          path: "posts-by-id",
+          name: "PostById",
+          component: PostById,
         },
       ],
     },
