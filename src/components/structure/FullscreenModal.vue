@@ -1,7 +1,6 @@
 <script setup>
 import RouterLinkButton from "../global/RouterLinkButton.vue";
 import { ref } from "vue";
-import "animate.css";
 
 const open = ref(false);
 </script>

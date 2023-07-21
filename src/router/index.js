@@ -4,6 +4,7 @@ import RegisterView from "@/views/auth/RegisterView.vue";
 import LoginView from "@/views/auth/LoginView.vue";
 import AccountView from "@/views/AccountView.vue";
 import ProfileSection from "@/views/account/ProfileSection.vue";
+import EditProfile from "@/views/account/EditProfile.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -31,6 +32,11 @@ const router = createRouter({
           path: "profile",
           name: "ProfileSection",
           component: ProfileSection,
+        },
+        {
+          path: "edit-profile",
+          name: "EditProfile",
+          component: EditProfile,
         },
       ],
     },

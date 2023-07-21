@@ -25,7 +25,7 @@ const inputComputed = computed({
   <div>
     <label
       for=""
-      class="mb-2 block text-xs font-bold uppercase tracking-wide text-gray-100"
+      class="mb-2 block text-xs font-bold uppercase tracking-wide"
       :class="[labelColor ? 'text-gray-900' : 'text-gray-100']"
     >
       {{ label }}

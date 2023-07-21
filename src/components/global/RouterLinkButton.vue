@@ -6,7 +6,7 @@ const props = defineProps({
   url: { type: String, default: "" },
 });
 
-const { btnText, color, url } = toRefs(props);
+const { btnText, url } = toRefs(props);
 </script>
 
 <template>
