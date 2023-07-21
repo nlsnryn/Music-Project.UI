@@ -28,6 +28,7 @@ const open = ref(false);
           class="border- mt-2 w-full border-blue-950 text-center text-lg text-white hover:bg-blue-950"
           btnText="Profile"
           url="/account/profile"
+          @closeModal="open = !open"
         />
         <RouterLinkButton
           class="border- mt-2 w-full border-red-950 text-center text-lg text-white hover:bg-red-950"
