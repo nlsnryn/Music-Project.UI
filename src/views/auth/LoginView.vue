@@ -4,9 +4,9 @@ import TextInput from "@/components/global/TextInput.vue";
 
 <template>
   <div>
-    <div class="flex w-full items-center justify-center p-6">
-      <div class="w-full max-w-xs">
-        <div class="mb-6 rounded bg-indigo-700 p-8 shadow">
+    <div class="flex h-screen w-full items-center justify-center p-6">
+      <div class="w-full max-w-md">
+        <div class="mb-6 rounded bg-blue-950 p-8 shadow">
           <h1 class="mb-6 text-lg font-thin text-gray-100">
             Let's get rocking
           </h1>
@@ -32,7 +32,7 @@ import TextInput from "@/components/global/TextInput.vue";
           </div>
 
           <button
-            class="block w-full rounded-sm bg-blue-950 py-3 text-sm tracking-wide text-white hover:bg-blue-900"
+            class="block w-full rounded-sm bg-red-500 py-3 text-sm tracking-wide text-white hover:bg-red-600"
             type="submit"
           >
             Login
@@ -43,7 +43,7 @@ import TextInput from "@/components/global/TextInput.vue";
           Don't have an account?
           <router-link
             to="register"
-            class="text-indigo-800 no-underline hover:underline"
+            class="text-xs font-semibold uppercase text-blue-950 no-underline hover:underline"
             >Register</router-link
           >
         </p>
