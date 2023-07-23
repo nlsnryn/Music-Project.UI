@@ -1,5 +1,31 @@
 <script setup>
 import TextInput from "@/components/global/TextInput.vue";
+import { ref } from "vue";
+import { useUserStore } from "../../stores/user.store";
+import axios from "axios";
+
+const userStore = useUserStore();
+
+const errors = ref([]);
+const email = ref(null);
+const password = ref(null);
+
+const login = async () => {
+  try {
+    const res = await axios.post("http://127.0.0.1:8000/api/login", {
+      email: email.value,
+      password: password.value,
+    });
+
+    console.log(res);
+    userStore.setUserDetails(res);
+    errors.value = [];
+  } catch (err) {
+    errors.value = [];
+    errors.value = err.response.data.errors;
+    console.error(err);
+  }
+};
 </script>
 
 <template>
@@ -11,14 +37,17 @@ import TextInput from "@/components/global/TextInput.vue";
             Let's get rocking
           </h1>
 
-          <div class="mb-4">
+          <div
+            class="mb-4"
+            :class="[errors.length == 0 ? 'space-y-4' : 'space-y-2']"
+          >
             <TextInput
               label="Email"
               :labelColor="false"
               placeholder="nelsonarabit00@gmail.com"
               v-model:input="email"
               inputType="email"
-              error="This is test error"
+              :error="errors.email ? errors.email[0] : ''"
             />
 
             <TextInput
@@ -27,13 +56,14 @@ import TextInput from "@/components/global/TextInput.vue";
               placeholder="********"
               v-model:input="password"
               inputType="password"
-              error="This is test error"
+              :error="errors.password ? errors.password[0] : ''"
             />
           </div>
 
           <button
             class="block w-full rounded-sm bg-red-500 py-3 text-sm tracking-wide text-white hover:bg-red-600"
             type="submit"
+            @click="login"
           >
             Login
           </button>
