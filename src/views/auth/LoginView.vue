@@ -12,7 +12,7 @@ const password = ref(null);
 
 const login = async () => {
   try {
-    const res = await axios.post("http://127.0.0.1:8000/api/login", {
+    const res = await axios.post("api/login", {
       email: email.value,
       password: password.value,
     });

@@ -5,14 +5,19 @@ import RouterLinkButton from "@/components/global/RouterLinkButton.vue";
 import SongsSection from "@/components/partials/profile/SongsSection.vue";
 import YoutubeVideoSection from "@/components/partials/profile/YoutubeVideoSection.vue";
 import PostSection from "@/components/partials/profile/PostSection.vue";
+import { useUserStore } from "../../stores/user.store";
+
+const userStore = useUserStore();
 </script>
 
 <template>
+  <!-- https://via.placeholder.com/500 -->
   <div class="container mx-auto mt-10 flex max-w-4xl">
     <div class="w-1/3">
+      <!-- https://via.placeholder.com/500 Sample Picture Default-->
       <img
         class="h-auto w-full rounded-lg shadow-lg"
-        src="https://via.placeholder.com/500"
+        :src="userStore.image"
         alt="Profile Picture"
       />
     </div>
@@ -20,10 +25,12 @@ import PostSection from "@/components/partials/profile/PostSection.vue";
       <div class="flex">
         <div class="w-1/2">
           <h1 class="text-left text-2xl text-gray-900 md:text-4xl">
-            Nelson Ryan
+            {{ userStore.firstName }} {{ userStore.lastName }}
           </h1>
           <span class="text-md text-gray-700">
-            <i><b>Rizal, Philippines</b></i>
+            <i
+              ><b>{{ userStore.location }}</b></i
+            >
           </span>
         </div>
         <div class="mt-2 w-1/2">

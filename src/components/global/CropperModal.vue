@@ -41,6 +41,7 @@ const crop = () => {
 
   emit("croppedImageData", croppedImageData);
   emit("showModal", false);
+  // console.log(croppedImageData);
 };
 </script>
 

@@ -5,7 +5,13 @@ import TextArea from "@/components/global/TextArea.vue";
 import SubmitForm from "@/components/global/SubmitForm.vue";
 import CropperModal from "@/components/global/CropperModal.vue";
 import CroppedImage from "@/components/global/CroppedImage.vue";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
+import { useUserStore } from "../../stores/user.store";
+import axios from "axios";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+const userStore = useUserStore();
 
 const showModal = ref(false);
 const firstName = ref(null);
@@ -13,9 +19,53 @@ const lastName = ref(null);
 const location = ref(null);
 const description = ref(null);
 const image = ref(null);
+let imageData = null;
+const errors = ref([]);
+
+onMounted(() => {
+  firstName.value = userStore.firstName || null;
+  lastName.value = userStore.lastName || null;
+  location.value = userStore.location || null;
+  description.value = userStore.description || null;
+  image.value = userStore.image || null;
+});
 
 const setCroppedImageData = (data) => {
+  imageData = data;
   image.value = data.imageUrl;
+};
+
+const updateUser = async () => {
+  errors.value = [];
+
+  let formData = new FormData();
+
+  formData.append("first_name", firstName.value || "");
+  formData.append("last_name", lastName.value || "");
+  formData.append("location", location.value || "");
+  formData.append("description", description.value || "");
+
+  if (imageData) {
+    formData.append("image", imageData.file || "");
+    formData.append("height", imageData.height || "");
+    formData.append("width", imageData.width || "");
+    formData.append("left", imageData.left || "");
+    formData.append("top", imageData.top || "");
+  }
+
+  let formDataArray = Array.from(formData.entries());
+
+  // Log the array to the console
+  console.log(formDataArray);
+
+  try {
+    await axios.post("api/users/" + userStore.id + "?_method=PUT", formData);
+    await userStore.fetchUser();
+
+    router.push({ name: "ProfileSection" });
+  } catch (err) {
+    errors.value = err.response.data.errors;
+  }
 };
 </script>
 
@@ -40,7 +90,7 @@ const setCroppedImageData = (data) => {
           placeholder="Nelson Ryan"
           v-model:input="firstName"
           inputType="text"
-          error="This is test error"
+          :error="errors.first_name ? errors.first_name[0] : ''"
         />
       </div>
 
@@ -51,7 +101,7 @@ const setCroppedImageData = (data) => {
           placeholder="Arabit"
           v-model:input="lastName"
           inputType="text"
-          error="This is test error"
+          :error="errors.lastName ? errors.last_name[0] : ''"
         />
       </div>
     </div>
@@ -63,7 +113,7 @@ const setCroppedImageData = (data) => {
           placeholder="Binangonan, Rizal, Philippines"
           v-model:input="location"
           inputType="text"
-          error="This is test error"
+          :error="errors.location ? errors.location[0] : ''"
         />
       </div>
     </div>
@@ -87,17 +137,18 @@ const setCroppedImageData = (data) => {
     <div class="mb-6 mt-4 flex flex-wrap">
       <div class="w-full px-3">
         <TextArea
-          v-model:description="description"
-          error="This is test error"
+          :error="errors.description ? errors.description[0] : ''"
           placeholder="Please enter some information here!"
           label="Description"
+          :description="description"
+          @update:description="(newValue) => (description = newValue)"
         />
       </div>
     </div>
 
     <div class="mb-6 mt-8 flex flex-wrap">
       <div class="w-full px-3">
-        <SubmitForm btnText="Update Profile" />
+        <SubmitForm btnText="Update Profile" @click="updateUser" />
       </div>
     </div>
   </div>

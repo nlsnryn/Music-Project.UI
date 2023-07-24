@@ -1,7 +1,5 @@
 <script setup>
-import { computed, defineProps, defineEmits, toRefs } from "vue";
-
-const emit = defineEmits("update:description");
+import { defineProps, toRefs } from "vue";
 
 const props = defineProps({
   description: String,
@@ -11,11 +9,6 @@ const props = defineProps({
 });
 
 const { label, placeholder, error, description } = toRefs(props);
-
-const descriptionComputed = computed({
-  get: () => description.value,
-  set: (val) => emit("update:description", val),
-});
 </script>
 
 <template>
@@ -28,7 +21,8 @@ const descriptionComputed = computed({
   <textarea
     class="mt-2 w-full appearance-none rounded border border-gray-400 bg-white px-4 py-3 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
     :placeholder="placeholder"
-    v-model="descriptionComputed"
+    :value="description"
+    @input="$emit('update:description', $event.target.value)"
     cols="30"
     rows="10"
   ></textarea>

@@ -25,15 +25,23 @@ export const useUserStore = defineStore("user", {
     },
 
     async fetchUser() {
-      const res = await axios.get(
-        "http://127.0.0.1:8000/api/users/" + this.$state.id,
-      );
+      let res = await axios.get("api/users/" + this.$state.id);
 
-      this.$this.id = res.data.user.id;
-      this.$this.firstName = res.data.user.first_name;
-      this.$this.lastName = res.data.user.last_name;
-      this.$this.location = res.data.user.location;
-      this.$this.description = res.data.user.description;
+      this.$state.id = res.data.user.id;
+      this.$state.firstName = res.data.user.first_name;
+      this.$state.lastName = res.data.user.last_name;
+      this.$state.location = res.data.user.location;
+      this.$state.description = res.data.user.description;
+      this.$state.image = res.data.user.image;
+      if (res.data.user.image) {
+        this.$state.image =
+          import.meta.env.VITE_APP_API_URL +
+          "images/users/" +
+          res.data.user.image;
+      } else {
+        this.$state.image =
+          import.meta.env.VITE_APP_URL + "DefaultUserAvatar.png";
+      }
     },
 
     async clearUser() {

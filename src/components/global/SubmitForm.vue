@@ -11,7 +11,6 @@ const { btnText } = toRefs(props);
 <template>
   <button
     class="float-right mt-2 inline-block bg-blue-950 px-4 py-3 font-bold text-white no-underline hover:bg-blue-900"
-    @click="$emit('submit', true)"
   >
     {{ btnText }}
   </button>
