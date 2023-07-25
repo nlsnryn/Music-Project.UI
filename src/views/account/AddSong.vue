@@ -45,6 +45,7 @@ const addSong = async () => {
   // console.log(formDataArray);
   try {
     await axios.post("api/songs", formData);
+    await songStore.fetchSongs(userStore.id);
 
     Swal.fire({
       position: "center",
@@ -53,8 +54,6 @@ const addSong = async () => {
       showConfirmButton: false,
       timer: 1500,
     });
-
-    await songStore.fetchSongs(userStore.id);
 
     router.push({ name: "ProfileSection" });
   } catch (err) {

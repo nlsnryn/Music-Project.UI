@@ -1,15 +1,29 @@
 <script setup>
 import axios from "axios";
-import { onMounted } from "vue";
 import { useSongStore } from "../../stores/song.store";
 import { useUserStore } from "../../stores/user.store";
+import Swal from "../../sweetalert";
 
 const songStore = useSongStore();
 const userStore = useUserStore();
 
 const deleteSong = async (id) => {
-  await axios.delete(`api/songs/${id}/${userStore.id}`);
-  await songStore.fetchSongs(userStore.id);
+  Swal.fire({
+    title: "Are you sure you want to delete this?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Yes! Delete it!",
+    confirmButtonColor: "#172554",
+    cancelButtonColor: "#d33",
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      await axios.delete(`api/songs/${id}/${userStore.id}`);
+      await songStore.fetchSongs(userStore.id);
+
+      Swal.fire("Deleted!", "Your file has been deleted.", "success");
+    }
+  });
 };
 </script>
 
