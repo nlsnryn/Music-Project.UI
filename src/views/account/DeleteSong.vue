@@ -1,4 +1,17 @@
-<script setup></script>
+<script setup>
+import axios from "axios";
+import { onMounted } from "vue";
+import { useSongStore } from "../../stores/song.store";
+import { useUserStore } from "../../stores/user.store";
+
+const songStore = useSongStore();
+const userStore = useUserStore();
+
+const deleteSong = async (id) => {
+  await axios.delete(`api/songs/${id}/${userStore.id}`);
+  await songStore.fetchSongs(userStore.id);
+};
+</script>
 
 <template>
   <div id="Add Song" class="container mx-auto max-w-4xl px-6 pt-20">
@@ -6,14 +19,24 @@
     <div class="mb-6 h-1 w-full bg-red-950"></div>
 
     <div class="rounded bg-white px-8 pb-8 pt-6">
-      <div class="flex flex-wrap">
-        <div class="mr-auto mt-2 w-3/4 p-1 text-lg text-gray-900">
-          1. This is a song
+      <div
+        class="flex flex-wrap"
+        v-for="(song, index) in songStore.songs"
+        :key="song.id"
+      >
+        <div
+          class="mr-auto mt-2 w-3/4 p-1 text-lg font-semibold uppercase text-gray-900"
+        >
+          {{ index + 1 }}.
+          <span class="text-sm font-medium uppercase tracking-wide">{{
+            song.title
+          }}</span>
         </div>
 
         <div class="1/4 ml-auto p-1">
           <button
             class="float-right rounded border border-red-950 bg-transparent px-4 py-2 font-semibold text-gray-900 hover:border-transparent hover:bg-red-950 hover:text-white"
+            @click="deleteSong(song.id)"
           >
             Delete Song
           </button>

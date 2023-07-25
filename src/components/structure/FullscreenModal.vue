@@ -37,6 +37,12 @@ const open = ref(false);
           @closeModal="open = !open"
         />
         <RouterLinkButton
+          class="border- mt-2 w-full border-blue-950 text-center text-lg text-white hover:bg-blue-950"
+          btnText="Home"
+          url="/"
+          @closeModal="open = !open"
+        />
+        <RouterLinkButton
           class="border- mt-2 w-full border-red-950 text-center text-lg text-white hover:bg-red-950"
           btnText="Close"
           @click="open = !open"

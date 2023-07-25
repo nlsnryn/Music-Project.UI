@@ -4,7 +4,7 @@ import ProfileAboutSection from "@/components/partials/profile/ProfileAboutSecti
 import RouterLinkButton from "@/components/global/RouterLinkButton.vue";
 import SongsSection from "@/components/partials/profile/SongsSection.vue";
 import YoutubeVideoSection from "@/components/partials/profile/YoutubeVideoSection.vue";
-import PostSection from "@/components/partials/profile/PostSection.vue";
+import PostsSection from "@/components/partials/profile/PostsSection.vue";
 import { useUserStore } from "../../stores/user.store";
 
 const userStore = useUserStore();
@@ -17,7 +17,9 @@ const userStore = useUserStore();
       <!-- https://via.placeholder.com/500 Sample Picture Default-->
       <img
         class="h-auto w-full rounded-lg shadow-lg"
-        :src="userStore.image"
+        :src="
+          userStore.image ? userStore.image : 'https://via.placeholder.com/500'
+        "
         alt="Profile Picture"
       />
     </div>
@@ -47,5 +49,5 @@ const userStore = useUserStore();
   </div>
   <SongsSection />
   <YoutubeVideoSection />
-  <PostSection />
+  <PostsSection />
 </template>

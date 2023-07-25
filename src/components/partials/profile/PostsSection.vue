@@ -6,7 +6,7 @@ import RouterLinkButton from "@/components/global/RouterLinkButton.vue";
   <div>
     <div class="mx-auto py-4">
       <div class="flex flex-wrap font-bold text-gray-100">
-        <div class="text-xl text-gray-900">Youtube Videos</div>
+        <div class="text-xl text-gray-900">Posts</div>
         <div class="h-1 w-full bg-blue-950"></div>
 
         <div class="mt-4 w-full">
