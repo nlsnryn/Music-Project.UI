@@ -1,5 +1,15 @@
 <script setup>
 import RouterLinkButton from "@/components/global/RouterLinkButton.vue";
+import { onMounted } from "vue";
+import { useVideoStore } from "../../../stores/video.store";
+import { useUserStore } from "../../../stores/user.store";
+
+const videoStore = useVideoStore();
+const userStore = useUserStore();
+
+onMounted(() => {
+  videoStore.fetchVideos(userStore.id);
+});
 </script>
 
 <template>
@@ -25,13 +35,13 @@ import RouterLinkButton from "@/components/global/RouterLinkButton.vue";
     </div>
 
     <div class="mb-4 flex flex-wrap">
-      <div class="my-1 w-full py-1 md:w-1/2 lg:w-1/2">
+      <div
+        class="my-1 w-full px-2 py-1 md:w-1/2 lg:w-1/2"
+        v-for="video in videoStore.videos"
+        :key="video.id"
+      >
         <div class="text-xl text-gray-900"></div>
-        <iframe
-          class="h-60 w-full"
-          src="https://www.youtube.com/embed/lBhb2NqJR6k?autoplay=0"
-          frameborder="0"
-        ></iframe>
+        <iframe class="h-60 w-full" :src="video.url" frameborder="0"></iframe>
       </div>
     </div>
   </div>

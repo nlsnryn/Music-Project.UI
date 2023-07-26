@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import axios from "axios";
-import { songs } from "./song.js";
+// import { songs } from "./song.js";
 
 export const useSongStore = defineStore("songs", {
   state: () => ({
@@ -19,6 +19,8 @@ export const useSongStore = defineStore("songs", {
 
     async clearUser() {
       this.$state.songs = null;
+      this.$state.artistId = null;
+      this.$state.artistName = null;
     },
   },
   persist: true,

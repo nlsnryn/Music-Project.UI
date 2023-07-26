@@ -33,6 +33,7 @@ const addSong = async () => {
     return null;
   }
 
+  errors.value = [];
   let formData = new FormData();
 
   formData.append("user_id", userStore.id);

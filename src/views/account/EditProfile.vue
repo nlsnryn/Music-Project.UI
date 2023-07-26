@@ -9,6 +9,7 @@ import { onMounted, ref } from "vue";
 import { useUserStore } from "../../stores/user.store";
 import axios from "axios";
 import { useRouter } from "vue-router";
+import Swal from "../../sweetalert.js";
 
 const router = useRouter();
 const userStore = useUserStore();
@@ -61,6 +62,8 @@ const updateUser = async () => {
   try {
     await axios.post("api/users/" + userStore.id + "?_method=PUT", formData);
     await userStore.fetchUser();
+
+    Swal.fire("Profile Saved!", "Your profile has been updated.", "success");
 
     router.push({ name: "ProfileSection" });
   } catch (err) {

@@ -34,7 +34,7 @@ const deleteSong = async (id) => {
 
     <div class="rounded bg-white px-8 pb-8 pt-6">
       <div
-        class="flex flex-wrap"
+        class="mt-1 flex flex-wrap"
         v-for="(song, index) in songStore.songs"
         :key="song.id"
       >
