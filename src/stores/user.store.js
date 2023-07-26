@@ -44,6 +44,10 @@ export const useUserStore = defineStore("user", {
       }
     },
 
+    userImage(image) {
+      return import.meta.env.VITE_APP_API_URL + "images/users/" + image;
+    },
+
     async clearUser() {
       this.$state.id = null;
       this.$state.token = null;

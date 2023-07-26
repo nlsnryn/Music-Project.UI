@@ -26,7 +26,7 @@ const { label, placeholder, error, description } = toRefs(props);
     cols="30"
     rows="10"
   ></textarea>
-  <span v-if="error" class="text-red-500">
+  <span v-if="error" class="text-xs text-red-500">
     {{ error }}
   </span>
 </template>

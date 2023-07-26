@@ -72,7 +72,7 @@ const router = createRouter({
           component: CreatePost,
         },
         {
-          path: "edit-post",
+          path: "edit-post/:id",
           name: "EditPost",
           component: EditPost,
         },
@@ -82,7 +82,7 @@ const router = createRouter({
           component: PostSection,
         },
         {
-          path: "posts-by-id",
+          path: "posts-by-id/:id",
           name: "PostById",
           component: PostById,
         },

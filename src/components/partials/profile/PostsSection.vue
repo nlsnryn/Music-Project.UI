@@ -1,5 +1,32 @@
 <script setup>
 import RouterLinkButton from "@/components/global/RouterLinkButton.vue";
+import axios from "axios";
+import { usePostStore } from "../../../stores/posts.store";
+import { useUserStore } from "../../../stores/user.store";
+import Swal from "../../../sweetalert";
+
+const postStore = usePostStore();
+const userStore = useUserStore();
+
+const deletePost = async (postId) => {
+  Swal.fire({
+    title: "Are you sure you want to delete this?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Yes! Delete it!",
+    confirmButtonColor: "#172554",
+    cancelButtonColor: "#d33",
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      let res = await axios.delete(`api/posts/${postId}`);
+      await postStore.fetchPostsByUser(userStore.id);
+
+      Swal.fire("Deleted!", "Your post has been deleted.", "success");
+      console.log(res);
+    }
+  });
+};
 </script>
 
 <template>
@@ -20,38 +47,40 @@ import RouterLinkButton from "@/components/global/RouterLinkButton.vue";
     </div>
 
     <div class="mb-4 flex flex-wrap">
-      <div class="my-1 w-full px-1 py-1 md:w-1/2 lg:w-1/2">
+      <div
+        v-for="post in postStore.posts"
+        :key="post.id"
+        class="my-1 w-full px-1 py-1 md:w-1/2 lg:w-1/2"
+      >
         <div class="rounded-lg border">
           <a href="#">
             <img
               class="rounded-t-lg"
-              src="https://via.placeholder.com/500x300"
+              :src="postStore.postImage(post.image)"
               alt="Image Post"
             />
           </a>
           <div class="p-2 md:p-4">
             <div class="text-lg">
               <router-link
-                to=""
+                :to="{ name: 'PostById', params: { id: post.id } }"
                 class="text-blue-950 underline hover:text-blue-900"
-                >Test Title</router-link
+                >{{ post.title }}</router-link
               >
             </div>
-            <p class="py-2">Location: Test Location</p>
+            <p class="py-2">Location: {{ post.location }}</p>
             <p class="text-gray-darker">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem
-              vero unde, assumenda totam reprehenderit rem eligendi, aut a
-              similique repudiandae adipisci ducimus, earum vel impedit placeat
-              iusto harum aliquid nisi.
+              {{ post.description }}
             </p>
             <div class="mt-2 flex items-center justify-end gap-2">
               <router-link
-                to=""
+                :to="{ name: 'EditPost', params: { id: post.id } }"
                 class="rounded-md bg-blue-950 px-2 py-1 text-sm font-bold text-white hover:bg-blue-900"
                 >Edit post</router-link
               >
               <button
                 class="rounded-md bg-red-950 px-2 py-1 text-sm font-bold text-white hover:bg-red-900"
+                @click="deletePost(post.id)"
               >
                 Delete
               </button>
