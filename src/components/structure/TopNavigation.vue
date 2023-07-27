@@ -8,7 +8,7 @@ import FullscreenModal from "./FullscreenModal.vue";
       class="container mx-auto flex h-16 max-w-4xl items-center justify-between text-xs md:text-sm"
     >
       <div class="flex h-full items-center">
-        <router-link to="" class="flex items-center justify-center">
+        <router-link to="/" class="flex items-center justify-center">
           <div class="text-2xl text-white"><b>NMP</b></div></router-link
         >
       </div>

@@ -13,6 +13,7 @@ import CreatePost from "@/views/account/CreatePost.vue";
 import EditPost from "@/views/account/EditPost.vue";
 import PostSection from "@/views/account/PostSection.vue";
 import PostById from "@/views/account/PostById.vue";
+import { authMiddleware } from "./middleware/auth.middleware";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -21,20 +22,32 @@ const router = createRouter({
       path: "/",
       name: "home",
       component: HomeView,
+      meta: {
+        group: "landing",
+      },
     },
     {
       path: "/register",
       name: "register",
       component: RegisterView,
+      meta: {
+        group: "auth",
+      },
     },
     {
       path: "/login",
       name: "login",
       component: LoginView,
+      meta: {
+        group: "auth",
+      },
     },
     {
       path: "/account",
       component: AccountView,
+      meta: {
+        requiredAuth: true,
+      },
       children: [
         {
           path: "profile/:id",
@@ -91,4 +104,5 @@ const router = createRouter({
   ],
 });
 
+router.beforeEach(authMiddleware);
 export default router;

@@ -36,7 +36,7 @@ export const useProfileStore = defineStore("profile", {
       return import.meta.env.VITE_APP_API_URL + "images/users/" + image;
     },
 
-    async clearProfile() {
+    clearProfile() {
       this.$state.id = null;
       this.$state.firstName = null;
       this.$state.lastName = null;

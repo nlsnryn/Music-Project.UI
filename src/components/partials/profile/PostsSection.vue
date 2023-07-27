@@ -5,6 +5,7 @@ import { usePostStore } from "../../../stores/posts.store";
 import { useUserStore } from "../../../stores/user.store";
 import Swal from "../../../sweetalert";
 import { useRoute } from "vue-router";
+import { onMounted } from "vue";
 
 const route = useRoute();
 const postStore = usePostStore();
@@ -29,6 +30,10 @@ const deletePost = async (postId) => {
     }
   });
 };
+
+onMounted(async () => {
+  await postStore.fetchPostsByUser(route.params.id);
+});
 </script>
 
 <template>

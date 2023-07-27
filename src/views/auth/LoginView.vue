@@ -6,8 +6,10 @@ import { useProfileStore } from "../../stores/profile.store";
 import { useSongStore } from "../../stores/song.store";
 import { useVideoStore } from "../../stores/video.store";
 import { usePostStore } from "../../stores/posts.store";
+import TopNavigation from "@/components/structure/TopNavigation.vue";
 import { useRouter } from "vue-router";
 import axios from "axios";
+import Swal from "@/sweetalert";
 
 const router = useRouter();
 const userStore = useUserStore();
@@ -29,12 +31,21 @@ const login = async () => {
       password: password.value,
     });
 
-    console.log(res);
+    axios.defaults.headers.common["Authorization"] = "Bearer " + res.data.token;
+
     userStore.setUserDetails(res);
     await profileStore.fetchProfileById(userStore.id);
     await songStore.fetchSongs(userStore.id);
     await videoStore.fetchVideos(userStore.id);
     await postStore.fetchPostsByUser(userStore.id);
+
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Login successfully",
+      showConfirmButton: false,
+      timer: 1500,
+    });
 
     router.push({ name: "ProfileSection", params: { id: userStore.id } });
   } catch (err) {
@@ -46,6 +57,7 @@ const login = async () => {
 
 <template>
   <div>
+    <TopNavigation />
     <div class="flex h-screen w-full items-center justify-center p-6">
       <div class="w-full max-w-md">
         <div class="mb-6 rounded bg-blue-950 p-8 shadow">

@@ -9,17 +9,17 @@ const songStore = useSongStore();
 
 let songList = [];
 
-onMounted(() => {
+onMounted(async () => {
   if (songStore.songs) {
+    await new Promise((res) => setTimeout(res, 500));
     mapSongs();
   }
   thePlayer();
 });
 
-// watch(songs, (newval) => {
-//   console.log(newval);
-//   mapSongs();
-// });
+watch(songs, (newval) => {
+  mapSongs();
+});
 
 const mapSongs = () => {
   let newSongs = songStore.songs.map(function (song) {
@@ -33,6 +33,7 @@ const mapSongs = () => {
   });
 
   songList = [];
+
   for (let index = 0; index < newSongs.length; index++) {
     songList.push(newSongs[index]);
   }

@@ -2,10 +2,17 @@
 import RouterLinkButton from "@/components/global/RouterLinkButton.vue";
 import SongsPlayer from "./SongsPlayer.vue";
 import { useUserStore } from "../../../stores/user.store";
+import { useSongStore } from "../../../stores/song.store";
 import { useRoute } from "vue-router";
+import { onMounted } from "vue";
 
 const route = useRoute();
 const userStore = useUserStore();
+const songStore = useSongStore();
+
+onMounted(async () => {
+  await songStore.fetchSongs(route.params.id);
+});
 </script>
 
 <template>

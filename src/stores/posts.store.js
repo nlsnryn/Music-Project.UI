@@ -15,7 +15,7 @@ export const usePostStore = defineStore("posts", {
       return import.meta.env.VITE_APP_API_URL + "images/posts/" + image;
     },
 
-    async clearPosts() {
+    clearPost() {
       this.$state.posts = null;
     },
   },
