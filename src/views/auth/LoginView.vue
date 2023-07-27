@@ -2,15 +2,27 @@
 import TextInput from "@/components/global/TextInput.vue";
 import { ref } from "vue";
 import { useUserStore } from "../../stores/user.store";
+import { useProfileStore } from "../../stores/profile.store";
+import { useSongStore } from "../../stores/song.store";
+import { useVideoStore } from "../../stores/video.store";
+import { usePostStore } from "../../stores/posts.store";
+import { useRouter } from "vue-router";
 import axios from "axios";
 
+const router = useRouter();
 const userStore = useUserStore();
+const profileStore = useProfileStore();
+const songStore = useSongStore();
+const videoStore = useVideoStore();
+const postStore = usePostStore();
 
 const errors = ref([]);
 const email = ref(null);
 const password = ref(null);
 
 const login = async () => {
+  errors.value = [];
+
   try {
     const res = await axios.post("api/login", {
       email: email.value,
@@ -19,9 +31,13 @@ const login = async () => {
 
     console.log(res);
     userStore.setUserDetails(res);
-    errors.value = [];
+    await profileStore.fetchProfileById(userStore.id);
+    await songStore.fetchSongs(userStore.id);
+    await videoStore.fetchVideos(userStore.id);
+    await postStore.fetchPostsByUser(userStore.id);
+
+    router.push({ name: "ProfileSection", params: { id: userStore.id } });
   } catch (err) {
-    errors.value = [];
     errors.value = err.response.data.errors;
     console.error(err);
   }

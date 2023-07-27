@@ -1,6 +1,11 @@
 <script setup>
 import RouterLinkButton from "@/components/global/RouterLinkButton.vue";
 import SongsPlayer from "./SongsPlayer.vue";
+import { useUserStore } from "../../../stores/user.store";
+import { useRoute } from "vue-router";
+
+const route = useRoute();
+const userStore = useUserStore();
 </script>
 
 <template>
@@ -10,7 +15,7 @@ import SongsPlayer from "./SongsPlayer.vue";
         <div class="text-xl text-gray-900">Songs</div>
         <div class="h-1 w-full bg-blue-950"></div>
 
-        <div class="mt-4 w-full">
+        <div class="mt-4 w-full" v-if="userStore.id == route.params.id">
           <RouterLinkButton
             btnText="Delete Song"
             url="/account/delete-song"

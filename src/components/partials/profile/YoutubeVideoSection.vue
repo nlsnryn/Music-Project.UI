@@ -3,7 +3,9 @@ import RouterLinkButton from "@/components/global/RouterLinkButton.vue";
 import { onMounted } from "vue";
 import { useVideoStore } from "../../../stores/video.store";
 import { useUserStore } from "../../../stores/user.store";
+import { useRoute } from "vue-router";
 
+const route = useRoute();
 const videoStore = useVideoStore();
 const userStore = useUserStore();
 
@@ -19,7 +21,7 @@ onMounted(() => {
         <div class="text-xl text-gray-900">Youtube Videos</div>
         <div class="h-1 w-full bg-blue-950"></div>
 
-        <div class="mt-4 w-full">
+        <div class="mt-4 w-full" v-if="userStore.id == route.params.id">
           <RouterLinkButton
             btnText="Delete Youtube Video"
             url="/account/delete-youtube-video"

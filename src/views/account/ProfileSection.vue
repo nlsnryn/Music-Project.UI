@@ -6,8 +6,17 @@ import SongsSection from "@/components/partials/profile/SongsSection.vue";
 import YoutubeVideoSection from "@/components/partials/profile/YoutubeVideoSection.vue";
 import PostsSection from "@/components/partials/profile/PostsSection.vue";
 import { useUserStore } from "../../stores/user.store";
+import { useProfileStore } from "../../stores/profile.store";
+import { onMounted } from "vue";
+import { useRoute } from "vue-router";
 
+const route = useRoute();
 const userStore = useUserStore();
+const profileStore = useProfileStore();
+
+onMounted(() => {
+  profileStore.fetchProfileById(route.params.id);
+});
 </script>
 
 <template>
@@ -18,7 +27,9 @@ const userStore = useUserStore();
       <img
         class="h-auto w-full rounded-lg shadow-lg"
         :src="
-          userStore.image ? userStore.image : 'https://via.placeholder.com/500'
+          profileStore.image
+            ? profileStore.image
+            : 'https://via.placeholder.com/500'
         "
         alt="Profile Picture"
       />
@@ -27,15 +38,15 @@ const userStore = useUserStore();
       <div class="flex">
         <div class="w-1/2">
           <h1 class="text-left text-2xl text-gray-900 md:text-4xl">
-            {{ userStore.firstName }} {{ userStore.lastName }}
+            {{ profileStore.firstName }} {{ profileStore.lastName }}
           </h1>
           <span class="text-md text-gray-700">
             <i
-              ><b>{{ userStore.location }}</b></i
+              ><b>{{ profileStore.location }}</b></i
             >
           </span>
         </div>
-        <div class="mt-2 w-1/2">
+        <div class="mt-2 w-1/2" v-if="userStore.id == route.params.id">
           <RouterLinkButton
             btnText="Edit Profile"
             class="border-blue-950 hover:bg-blue-950"

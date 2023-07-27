@@ -68,7 +68,8 @@ const updatePostById = async () => {
 
     Swal.fire("Profile Saved!", "Your profile has been updated.", "success");
     console.log(res);
-    router.push({ name: "ProfileSection" });
+    
+    router.push({ name: "ProfileSection", params: { id: userStore.id } });
   } catch (err) {
     errors.value = err.response.data.errors;
     console.error(err);

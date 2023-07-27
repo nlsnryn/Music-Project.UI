@@ -4,7 +4,9 @@ import axios from "axios";
 import { usePostStore } from "../../../stores/posts.store";
 import { useUserStore } from "../../../stores/user.store";
 import Swal from "../../../sweetalert";
+import { useRoute } from "vue-router";
 
+const route = useRoute();
 const postStore = usePostStore();
 const userStore = useUserStore();
 
@@ -36,7 +38,7 @@ const deletePost = async (postId) => {
         <div class="text-xl text-gray-900">Posts</div>
         <div class="h-1 w-full bg-blue-950"></div>
 
-        <div class="mt-4 w-full">
+        <div class="mt-4 w-full" v-if="userStore.id == route.params.id">
           <RouterLinkButton
             btnText="Create Post"
             url="/account/create-post"
@@ -72,7 +74,10 @@ const deletePost = async (postId) => {
             <p class="text-gray-darker">
               {{ post.description }}
             </p>
-            <div class="mt-2 flex items-center justify-end gap-2">
+            <div
+              class="mt-2 flex items-center justify-end gap-2"
+              v-if="userStore.id == route.params.id"
+            >
               <router-link
                 :to="{ name: 'EditPost', params: { id: post.id } }"
                 class="rounded-md bg-blue-950 px-2 py-1 text-sm font-bold text-white hover:bg-blue-900"

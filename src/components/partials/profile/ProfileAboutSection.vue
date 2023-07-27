@@ -1,7 +1,9 @@
 <script setup>
 import { useUserStore } from "../../../stores/user.store";
+import { useProfileStore } from "../../../stores/profile.store";
 
 const userStore = useUserStore();
+const profileStore = useProfileStore();
 </script>
 
 <template>
@@ -10,7 +12,7 @@ const userStore = useUserStore();
       <b>About me</b>
     </p>
     <p class="text-md leading-normal text-gray-600 md:text-lg">
-      {{ userStore.description }}
+      {{ profileStore.description }}
     </p>
   </div>
 </template>

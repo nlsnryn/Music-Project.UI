@@ -66,7 +66,7 @@ const createPost = async () => {
 
     Swal.fire("Post Saved!", "New post added.", "success");
 
-    router.push({ name: "ProfileSection" });
+    router.push({ name: "ProfileSection", params: { id: userStore.id } });
   } catch (err) {
     errors.value = err.response.data.errors;
     console.error(err);

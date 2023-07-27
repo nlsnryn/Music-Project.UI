@@ -65,8 +65,9 @@ const updateUser = async () => {
 
     Swal.fire("Profile Saved!", "Your profile has been updated.", "success");
 
-    router.push({ name: "ProfileSection" });
+    router.push({ name: "ProfileSection", params: { id: userStore.id } });
   } catch (err) {
+    console.error(err);
     errors.value = err.response.data.errors;
   }
 };
