@@ -11,7 +11,7 @@ const { btnText, url } = toRefs(props);
 
 <template>
   <router-link
-    class="float-right rounded border bg-transparent px-4 py-2 font-semibold text-gray-900 hover:border-transparent hover:text-white"
+    class="float-right rounded border px-4 py-2 font-semibold text-gray-900 hover:border-transparent hover:text-white"
     :to="url"
     @click="$emit('closeModal')"
   >

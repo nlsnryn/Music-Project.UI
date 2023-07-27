@@ -34,7 +34,7 @@ onMounted(() => {
 
 <template>
   <div id="Add Song" class="container mx-auto max-w-4xl px-6 pt-20">
-    <div class="text-xl font-semibold text-gray-900">Add Song</div>
+    <div class="text-xl font-semibold text-gray-900">Delete Youtube Video</div>
     <div class="mb-6 h-1 w-full bg-red-950"></div>
 
     <div class="rounded bg-white px-8 pb-8 pt-6">

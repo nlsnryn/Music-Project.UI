@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, onUpdated, ref, watch } from "vue";
+import { onMounted, onUnmounted, watch } from "vue";
 import "aplayer/dist/APlayer.min.css";
 import APlayer from "aplayer";
 import { useSongStore } from "../../../stores/song.store";
@@ -9,16 +9,13 @@ const songStore = useSongStore();
 
 let songList = [];
 
-onMounted(async () => {
+onMounted(() => {
   if (songStore.songs) {
-    await new Promise((res) => setTimeout(res, 500));
-    mapSongs();
+    setTimeout(() => {
+      mapSongs();
+      thePlayer();
+    }, 2000);
   }
-  thePlayer();
-});
-
-watch(songs, (newval) => {
-  mapSongs();
 });
 
 const mapSongs = () => {
